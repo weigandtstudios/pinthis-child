@@ -17,28 +17,36 @@
 			</ul>
 		</div>
 		<?php } ?>
+		<div class="preview">
+			<p class="thumb">
+				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+					<?php if (has_post_thumbnail()) { ?>
+						<?php  
+						$large_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+						$params = array('width' => 236);
+						$img = bfi_thumb($large_image_url[0], $params);
+						$parsed_url = strstr(parse_url($img, PHP_URL_PATH), 'bfi_thumb');
+						$upload_dir = wp_upload_dir();
+						if ($img) {
+							list($width, $height) = getimagesize(trailingslashit($upload_dir['basedir']) . $parsed_url);
+						?>
+							<img src="<?php echo $img; ?>" width="236" height="<?php echo $height; ?>" alt="<?php the_title(); ?>">
+						<?php
+						} else {
+							the_post_thumbnail('medium');	
+						}
+					?>
+					<?php } else { ?>
+						<img src="<?php echo pinthis_get_skin_src(); ?>/images/no-image.png" width="236" height="236" alt="<?php the_title(); ?>">
+					<?php } ?>
+				</a>
+			</p>
+		</div>
 		<div class="excerpt clearfix">
 			<?php
 				$pinthis_quote_text = get_post_meta($post->ID, 'quote_text', true);
 				$pinthis_quote_author = get_post_meta($post->ID, 'quote_author', true);
 			?>
-			<?php if (has_post_thumbnail()) { ?>
-			<p class="quote-cover" 
-				<?php  
-				$large_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
-				$params = array('width' => 236);
-				$img = bfi_thumb($large_image_url[0], $params);
-				$parsed_url = strstr(parse_url($img, PHP_URL_PATH), 'bfi_thumb');
-				$upload_dir = wp_upload_dir();
-				if ($img) {
-					list($width, $height) = getimagesize(trailingslashit($upload_dir['basedir']) . $parsed_url);
-				?>
-				style="background-image:url(<?php echo $img; ?>);"
-				<?php
-				}
-				?>
-			>&nbsp;</p>
-			<?php } ?>
 			<p class="quote-text"><a href="<?php the_permalink(); ?>"><?php echo $pinthis_quote_text; ?></a></p>
 			<?php if ($pinthis_quote_author != '') { ?>
 			<p class="quote-author"><?php echo $pinthis_quote_author; ?></p>
