@@ -13,3 +13,17 @@
 */
 
 @import "../PinThis/style.css";
+
+.social-media-icons li a.icon-pinterest {
+	background-image: url(images/icon-pinterest.png);
+	background-position: center 10px;
+}
+.social-media-icons li a.icon-pinterest:hover {
+	background-color: #bd1e23;
+}
+.border-color-pinterest {
+	border-top: 4px solid #bd1e23;
+}
+.pinbox .top-bar {
+	padding-left: 36px !important;
+}
