@@ -20,6 +20,7 @@
 }
 .social-media-icons li a.icon-pinterest:hover {
 	background-color: #bd1e23;
+	background-position: center -174px !important;
 }
 .border-color-pinterest {
 	border-top: 4px solid #bd1e23;
